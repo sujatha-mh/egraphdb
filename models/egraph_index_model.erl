@@ -254,7 +254,7 @@ delete_resource(Key, KeyType, IndexName) ->
     end.
 delete_resource(Key, KeyType, Value, IndexName) ->
     {Query, Params} = form_delete_index_base_query(Key, KeyType, IndexName),
-    Query1 = iolist_to_binary([Query, <<"and id=?">>]),
+    Query1 = iolist_to_binary([Query] ++ " and id=?"),
     TimeoutMsec = egraph_config_util:mysql_rw_timeout_msec(index),
     PoolName = egraph_config_util:mysql_rw_pool(index),
     case egraph_sql_util:mysql_write_query(
